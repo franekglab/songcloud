@@ -1,4 +1,4 @@
-package com.songcloud;
+package com.songcloud.song.dto;
 
 public record SingleSongResponseDTO(String song) {
 }

@@ -1,6 +1,5 @@
-package com.songcloud;
+package com.songcloud.song.dto;
 
-import java.util.List;
 import java.util.Map;
 
 public record SongResponseDTO(Map<Integer, String> songs) {
