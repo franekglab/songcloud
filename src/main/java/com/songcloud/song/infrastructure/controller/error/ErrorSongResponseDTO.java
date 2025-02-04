@@ -1,4 +1,4 @@
-package com.songcloud.song.error;
+package com.songcloud.song.infrastructure.controller.error;
 
 import org.springframework.http.HttpStatus;
 
