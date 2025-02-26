@@ -13,17 +13,24 @@ public class SongMapper {
     public static Song mapFromCreateSongRequestDtoToSong(CreateSongRequestDto dto) {
         return new Song(dto.songName(), dto.artistName());
     }
+    public static SongDto mapFromSongToSongDto(Song song) {
+        return new SongDto(song.getId(), song.getSongName(), song.getArtistName());
+    }
 
     public static CreateSongResponseDto mapFromSongToCreateSongResponseDto(Song song) {
-        return new CreateSongResponseDto(song);
+        SongDto songDto = SongMapper.mapFromSongToSongDto(song);
+        return new CreateSongResponseDto(songDto);
     }
 
     public static GetSongResponseDto mapFromSongToGetSongResponseDto(Song song) {
-        return new GetSongResponseDto(song);
+        SongDto songDto = SongMapper.mapFromSongToSongDto(song);
+        return new GetSongResponseDto(songDto);
     }
 
-    public static GetAllSongsResponseDto mapFromSongToGetAllSongsResponseDto(List<Song> database) {
-        return new GetAllSongsResponseDto(database);
+    public static GetAllSongsResponseDto mapFromSongToGetAllSongsResponseDto(List<Song> songs) {
+        List<SongDto> songDtos = songs.stream()
+                .map(SongMapper::mapFromSongToSongDto).toList();
+        return new GetAllSongsResponseDto(songDtos);
     }
 
     public static DeleteSongResponseDto mapFromSongToDeleteSongResponseDto(Long id) {
@@ -43,7 +50,8 @@ public class SongMapper {
     }
 
     public static PartiallyUpdateSongResponseDto mapFromSongToPartiallyUpdateSongResponseDto(Song updatedSong) {
-        return new PartiallyUpdateSongResponseDto(updatedSong);
+        SongDto songDto = SongMapper.mapFromSongToSongDto(updatedSong);
+        return new PartiallyUpdateSongResponseDto(songDto);
     }
 
 

@@ -5,10 +5,10 @@ import com.songcloud.song.domain.model.SongNotFoundException;
 import com.songcloud.song.domain.repository.SongRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -17,20 +17,20 @@ public class SongRetriever {
 
     private final SongRepository songRepository;
 
-    public List<Song> findAll() {
+    public List<Song> findAll(Pageable pageable) {
         log.info("retrieving all songs: ");
-        return songRepository.findAll();
+        return songRepository.findAll(pageable);
     }
 
-    public List<Song> findAllLimited(Integer limit) {
-        return songRepository.findAll().stream().limit(limit).toList();
+    public Song findSongById(Long id) {
+        return songRepository.findById(id).orElseThrow(() -> new SongNotFoundException("Song with id:" + id + " not found"));
     }
 
-    public Optional<Song> findSongById(Long id) {
-        return songRepository.findById(id);
+    public void existsById(Long id) {
+        if(!songRepository.existsById(id)) {
+            throw new SongNotFoundException("Song with id:" + id + " not found");
+        }
     }
 
-    public void existById(Long id) {
-        findSongById(id).orElseThrow(() -> new SongNotFoundException("Song with id:" + id + " not found"));
-    }
 }
+

@@ -1,4 +1,4 @@
 package com.songcloud.song.infrastructure.controller.dto.response;
 
-public record GetSongResponseDto(SongDto song) {
+public record SongDto(Long id, String songName, String artistName) {
 }
