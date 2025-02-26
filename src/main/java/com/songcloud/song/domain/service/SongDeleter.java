@@ -6,17 +6,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
-@RequiredArgsConstructor
-@Log4j2
 @Service
-public class SongAdder {
-
+@Log4j2
+@RequiredArgsConstructor
+public class SongDeleter {
     private final SongRepository songRepository;
 
-    public Song addSong(Song song) {
-        log.info("adding new song: " + song);
-        return songRepository.save(song);
+    public void deleteById(Long id) {
+        log.info("delete song by id:" + id);
+        songRepository.deleteById(id);
     }
-
-
 }

@@ -6,8 +6,7 @@ import com.songcloud.song.infrastructure.controller.dto.request.UpdateSongReques
 import com.songcloud.song.infrastructure.controller.dto.response.*;
 import com.songcloud.song.domain.model.Song;
 import org.springframework.http.HttpStatus;
-
-import java.util.Map;
+import java.util.List;
 
 public class SongMapper {
 
@@ -23,11 +22,11 @@ public class SongMapper {
         return new GetSongResponseDto(song);
     }
 
-    public static GetAllSongsResponseDto mapFromSongToGetAllSongsResponseDto(Map<Integer, Song> database) {
+    public static GetAllSongsResponseDto mapFromSongToGetAllSongsResponseDto(List<Song> database) {
         return new GetAllSongsResponseDto(database);
     }
 
-    public static DeleteSongResponseDto mapFromSongToDeleteSongResponseDto(Integer id) {
+    public static DeleteSongResponseDto mapFromSongToDeleteSongResponseDto(Long id) {
         return new DeleteSongResponseDto("You deleted song with id: " + id, HttpStatus.OK);
     }
 
@@ -36,7 +35,7 @@ public class SongMapper {
     }
 
     public static UpdateSongResponseDto mapFromSongToUpdateSongResponseDto(Song newSong) {
-        return new UpdateSongResponseDto(newSong.songName(), newSong.artistName());
+        return new UpdateSongResponseDto(newSong.getSongName(), newSong.getArtistName());
     }
 
     public static Song mapFromPartiallyUpdateSongRequestDtoToSong(PartiallyUpdateSongRequestDto dto) {
