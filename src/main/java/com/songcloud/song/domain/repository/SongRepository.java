@@ -1,28 +1,24 @@
 package com.songcloud.song.domain.repository;
 
-
 import com.songcloud.song.domain.model.Song;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.Repository;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
+import java.util.Optional;
 
-@Repository
-public class SongRepository {
+public interface SongRepository extends Repository<Song, Long> {
 
-    Map<Integer, Song> database = new HashMap<>(Map.of(
-            1, new Song("cherry lady", "Louis Villain"),
-            2, new Song("apollo", "Avi"),
-            3, new Song("mickey rourke", "Sentino"),
-            4, new Song("fuego", "Louis Villain")
-    ));
+    Song save(Song song);
 
-    public Song saveToDatabase(Song song) {
-        database.put(database.size() + 1, song);
-        return song;
-    }
+    List<Song> findAll();
 
-    public Map<Integer, Song> findAll() {
-        return database;
-    }
+    Optional<Song> findById(Long id);
+
+    void deleteById(Long id);
+
+    @Modifying
+    @Query("UPDATE Song s SET s.songName = :#{#newSong.songName}, s.artistName = :#{#newSong.artistName} WHERE s.id = :id")
+    void updateById(Long id, Song newSong);
 }
