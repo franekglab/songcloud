@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 @Service
 @Log4j2
 @AllArgsConstructor(access = lombok.AccessLevel.PACKAGE)
-@Transactional
 class SongUpdater {
 
     private final SongRepository songRepository;

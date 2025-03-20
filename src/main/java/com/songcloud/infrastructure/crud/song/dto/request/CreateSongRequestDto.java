@@ -9,8 +9,6 @@ public record CreateSongRequestDto(
         @NotEmpty(message = "name can not be empty")
         String songName,
 
-        @NotNull(message = "artist can not be null")
-        @NotEmpty(message = "artist can not be empty")
         String artist
 ) {
 }

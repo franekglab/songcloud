@@ -1,4 +1,4 @@
-package com.songcloud.domain.crud.song;
+package com.songcloud.domain.crud.dto;
 
 import lombok.Builder;
 

@@ -1,7 +1,8 @@
 package com.songcloud.infrastructure.crud.song.controller;
 
-import com.songcloud.domain.crud.song.SongCrudFacade;
-import com.songcloud.domain.crud.song.SongDto;
+import com.songcloud.domain.crud.dto.SongRequestDto;
+import com.songcloud.domain.crud.song.SongcloudCrudFacade;
+import com.songcloud.domain.crud.dto.SongDto;
 import com.songcloud.infrastructure.crud.song.dto.request.CreateSongRequestDto;
 import com.songcloud.infrastructure.crud.song.dto.request.PartiallyUpdateSongRequestDto;
 import com.songcloud.infrastructure.crud.song.dto.request.UpdateSongRequestDto;
@@ -24,7 +25,7 @@ import static com.songcloud.infrastructure.crud.song.controller.SongControllerMa
 @RequestMapping("/songs")
 class SongRestController {
 
-    private final SongCrudFacade songFacade;
+    private final SongcloudCrudFacade songFacade;
 
     @GetMapping
      ResponseEntity<GetAllSongsResponseDto> getAllSongs(@PageableDefault(page = 0, size = 10) Pageable pageable) {
@@ -43,9 +44,8 @@ class SongRestController {
     }
 
     @PostMapping
-     ResponseEntity<CreateSongResponseDto> postSongs(@RequestBody @Valid CreateSongRequestDto request) {
-        SongDto songDto = mapFromCreateSongRequestDtoToSongDto(request);
-        SongDto savedSong = songFacade.addSong(songDto);
+     ResponseEntity<CreateSongResponseDto> postSongs(@RequestBody @Valid SongRequestDto request) {
+        SongDto savedSong = songFacade.addSong(request);
         CreateSongResponseDto body = mapFromSongToCreateSongResponseDto(savedSong);
         return ResponseEntity.ok(body);
     }
