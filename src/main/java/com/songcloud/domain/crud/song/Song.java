@@ -27,8 +27,11 @@ class Song extends BaseEntity {
 
     private Long duration;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     private Genre genre;
+
+    @ManyToOne
+    private Album album;
 
     @Enumerated(EnumType.STRING)
     private SongLanguage language;

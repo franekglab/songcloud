@@ -3,6 +3,7 @@ package com.songcloud.infrastructure.crud.song.controller;
 import com.songcloud.domain.crud.dto.SongRequestDto;
 import com.songcloud.domain.crud.song.SongcloudCrudFacade;
 import com.songcloud.domain.crud.dto.SongDto;
+import com.songcloud.infrastructure.crud.song.dto.request.CreateSongRequestDto;
 import com.songcloud.infrastructure.crud.song.dto.request.PartiallyUpdateSongRequestDto;
 import com.songcloud.infrastructure.crud.song.dto.request.UpdateSongRequestDto;
 import com.songcloud.infrastructure.crud.song.dto.response.*;
@@ -28,7 +29,7 @@ class SongRestController {
 
     @GetMapping
      ResponseEntity<GetAllSongsResponseDto> getAllSongs(@PageableDefault(page = 0, size = 10) Pageable pageable) {
-        List<SongDto> allSongs = songFacade.findAllSongs(pageable);
+        List<SongDto> allSongs = songFacade.findAll(pageable);
         GetAllSongsResponseDto response = mapFromSongToGetAllSongsResponseDto(allSongs);
         return ResponseEntity.ok(response);
     }
@@ -51,7 +52,7 @@ class SongRestController {
 
     @DeleteMapping("/{id}")
      ResponseEntity<DeleteSongResponseDto> deleteSongById(@PathVariable Long id) {
-        songFacade.deleteSongById(id);
+        songFacade.deleteById(id);
         DeleteSongResponseDto body = mapFromSongToDeleteSongResponseDto(id);
         return ResponseEntity.ok(body);
     }
@@ -60,7 +61,7 @@ class SongRestController {
      ResponseEntity<UpdateSongResponseDto> updateSong(@PathVariable Long id,
                                                             @RequestBody @Valid UpdateSongRequestDto request) {
         SongDto newSongDto = mapFromUpdateSongRequestDtoToSongDto(request);
-        songFacade.updateSongById(id, newSongDto);
+        songFacade.updateById(id, newSongDto);
         UpdateSongResponseDto body = mapFromSongToUpdateSongResponseDto(newSongDto);
         return ResponseEntity.ok(body);
     }
@@ -70,7 +71,7 @@ class SongRestController {
      ResponseEntity<PartiallyUpdateSongResponseDto> partiallyUpdateSong(@PathVariable Long id,
                                                                               @RequestBody PartiallyUpdateSongRequestDto request) {
         SongDto updatedSong = mapFromPartiallyUpdateSongRequestDtoToSong(request);
-        SongDto savedSong = songFacade.updateSongPartiallyById(id, updatedSong);
+        SongDto savedSong = songFacade.updatePartiallyById(id, updatedSong);
         PartiallyUpdateSongResponseDto body = mapFromSongDtoToPartiallyUpdateSongResponseDto(savedSong);
         return ResponseEntity.ok(body);
     }
