@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/genre")
+@RequestMapping("/genres")
 public class GenreRestController {
 
     private final SongcloudCrudFacade songFacade;
