@@ -23,9 +23,15 @@ public class SongcloudCrudFacade {
     private final AlbumAdder albumAdder;
     private final ArtistRetriever artistRetriever;
     private final AlbumRetriever albumRetriever;
+    private final ArtistDeleter artistDeleter;
+    private final ArtistAssigner artistAssigner;
 
     public AlbumDto addAlbumWithSong(AlbumRequestDto dto) {
         return albumAdder.addAlbum(dto.songId(), dto.name(), dto.releaseDate());
+    }
+
+    public void addArtistToAlbum(Long artistId, Long albumId) {
+        artistAssigner.addArtistToAlbum(artistId, albumId);
     }
 
     public GenreDto addGenre(GenreRequestDto dto) {
@@ -51,6 +57,10 @@ public class SongcloudCrudFacade {
     public SongDto findSongDtoById(Long id) {
         return songRetriever.findSongDtoById(  id);
 
+    }
+
+    public void deleteArtistByIdWithAlbumsAndSongs(Long artistId) {
+        artistDeleter.deleteArtistByIdWithAlbumsAndSongs(artistId);
     }
 
     public AlbumDtoWithArtistsAndSongs findAlbumByIdWithArtistsAndSongs(Long id) {

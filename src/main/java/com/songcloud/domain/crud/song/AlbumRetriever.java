@@ -37,4 +37,13 @@ class AlbumRetriever {
 
         return new AlbumDtoWithArtistsAndSongs(albumDto, artistsDto, songsDto);
     }
+
+    Set<Album> finAlbumsByArtistId(final Long artistId) {
+        return albumRepository.findAllAlbumsByArtistId(artistId);
+    }
+
+    Album findById(final Long albumId) {
+        return albumRepository.findById(albumId)
+                .orElseThrow(() -> new AlbumNotFoundException("Album with id: " + albumId + " not found"));
+    }
 }

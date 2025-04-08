@@ -31,4 +31,16 @@ public class ArtistRestController {
         Set<ArtistDto> allArtists = songFacade.findAllArtists(pageable);
         return ResponseEntity.ok(new AllArtistsDto(allArtists));
     }
+
+    @DeleteMapping("/{artistId}")
+    ResponseEntity<String> deleteArtistWithAllAlbumsAndSongs(@PathVariable Long artistId) {
+        songFacade.deleteArtistByIdWithAlbumsAndSongs(artistId);
+        return ResponseEntity.ok("all deleted successfully");
+    }
+
+    @PutMapping("/{artistId}/{albumId}")
+    ResponseEntity<String> addArtistToAlbum(@PathVariable Long artistId, @PathVariable Long albumId) {
+        songFacade.addArtistToAlbum(artistId, albumId);
+        return ResponseEntity.ok("assigned successfully");
+    }
 }
